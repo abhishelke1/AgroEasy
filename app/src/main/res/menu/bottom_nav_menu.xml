@@ -1,0 +1,19 @@
+<!-- res/menu/bottom_nav_menu.xml -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home"
+    android:title="Home" />
+    <item
+        android:id="@+id/nav_qr"
+        android:icon="@drawable/ic_qr"
+        android:title="QR" />
+    <item
+        android:id="@+id/nav_video"
+        android:icon="@drawable/img_23"
+        android:title="Video" />
+    <item
+        android:id="@+id/nav_account"
+        android:icon="@drawable/ic_account"
+        android:title="Account" />
+</menu>

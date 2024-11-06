@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ProfilePageActivity">
+
+    <!-- Back Button -->
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/img_1"
+        android:background="?android:attr/selectableItemBackground"
+        android:contentDescription="Back" />
+
+    <!-- Top Circular Cut Background -->
+    <View
+        android:id="@+id/headerBackground"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@drawable/circular_bg"
+        android:layout_alignParentTop="true" />
+
+    <!-- Profile Picture -->
+    <ImageView
+        android:id="@+id/profilePicture"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:src="@drawable/img_24"
+        android:background="@drawable/circle_shape" />
+
+    <!-- Profile Name -->
+    <EditText
+        android:id="@+id/profileName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter Your Name "
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/profilePicture"
+        android:layout_marginTop="16dp" />
+
+    <!-- Mobile Number -->
+    <TextView
+        android:id="@+id/tvMobileLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mobile Number"
+        android:textSize="14sp"
+        android:textColor="@color/teal_700"
+        android:layout_below="@id/profileName"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp" />
+
+    <EditText
+        android:id="@+id/tvMobileNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvMobileLabel"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:text="+91 XXXXX XXXXX"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:background="@null"
+        android:drawableEnd="@drawable/ic_edit" />
+
+    <!-- Underline for Mobile -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/teal_700"
+        android:layout_below="@id/tvMobileNumber"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp" />
+
+    <!-- Email -->
+    <TextView
+        android:id="@+id/tvEmailLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:textSize="14sp"
+        android:textColor="@color/teal_700"
+        android:layout_below="@id/tvMobileNumber"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp" />
+
+    <EditText
+        android:id="@+id/tvUserEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvEmailLabel"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:text="pras@kote11@gmail.com"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:background="@null"
+        android:drawableEnd="@drawable/ic_edit" />
+
+    <!-- Underline for Email -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/teal_700"
+        android:layout_below="@id/tvUserEmail"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp" />
+
+    <!-- Address -->
+    <TextView
+        android:id="@+id/tvAddressLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Address"
+        android:textSize="14sp"
+        android:textColor="@color/teal_700"
+        android:layout_below="@id/tvUserEmail"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp" />
+
+    <EditText
+        android:id="@+id/tvUserAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvAddressLabel"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:text="-------------------"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:background="@null"
+        android:drawableEnd="@drawable/ic_edit" />
+
+    <!-- Underline for Address -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/teal_700"
+        android:layout_below="@id/tvUserAddress"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp" />
+
+    <!-- Update Profile Button -->
+    <Button
+        android:id="@+id/btnUpdateProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Update Profile"
+        android:textColor="@android:color/white"
+        android:background="@drawable/rounded_button"
+        android:layout_below="@id/tvUserAddress"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:padding="12dp" />
+
+    <!-- Logout Button -->
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:textColor="@android:color/black"
+        android:layout_below="@id/btnUpdateProfile"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+       />
+
+    <!-- Help Section -->
+    <TextView
+        android:id="@+id/tvHelp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Need Help?"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        android:layout_below="@id/btnLogout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="36dp" />
+
+    <!-- Version -->
+    <TextView
+        android:id="@+id/tvVersion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Version 1.9.1"
+        android:textSize="12sp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_below="@id/tvHelp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp" />
+
+</RelativeLayout>

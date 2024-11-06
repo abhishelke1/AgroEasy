@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".HomePage">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_navigation"> <!-- Position above the bottom nav -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="0dp"> <!-- Remove extra padding -->
+
+            <!-- Menu Bar -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="16dp">
+
+                <!-- Menu Icon -->
+                <ImageView
+                    android:id="@+id/menuIcon"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/img_11"
+                    android:contentDescription="Menu" />
+
+                <!-- AgroEasy Name -->
+                <TextView
+                    android:id="@+id/tvAgroEasy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="AGROEASY"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/abhi" /> <!-- Change to your custom font -->
+
+                <!-- Notification Icon -->
+                <ImageView
+                    android:id="@+id/notificationIcon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/img_12"
+                    android:contentDescription="Notifications"
+                    android:layout_marginEnd="16dp" />
+
+                <!-- Profile Picture Icon -->
+                <ImageView
+                    android:id="@+id/profileIcon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/circle_shape"
+                    android:contentDescription="Profile"
+                    android:src="@drawable/ic_profile" />
+                <!-- Circular background for profile photo -->
+            </LinearLayout>
+
+            <!-- Search Bar -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/rounded_button"
+                android:padding="12dp"
+                android:layout_margin="16dp">
+
+                <ImageView
+                    android:id="@+id/searchIcon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/img_14"
+                    android:contentDescription="Search" />
+
+                <EditText
+                    android:id="@+id/etSearchCategories"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Search any categories"
+                    android:background="@null"
+                    android:textColor="@android:color/black"
+                    android:paddingStart="8dp"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:padding="8dp"
+                android:fillViewport="true"> <!-- Added to fill width -->
+
+                <GridLayout
+                    android:id="@+id/gridLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:alignmentMode="alignMargins"
+                    android:columnCount="2"
+                    android:padding="16dp">
+
+                    <!-- First Row -->
+                    <ImageButton
+                        android:id="@+id/btnPesticides"
+                        android:layout_width="150dp"
+                        android:layout_height="130dp"
+                        android:src="@drawable/img_15"
+                        android:background="@color/white"
+                        android:scaleType="fitXY"
+                        android:contentDescription="Pesticides" />
+
+                    <ImageButton
+                        android:id="@+id/btnCrops"
+                        android:layout_width="150dp"
+                        android:layout_height="130dp"
+                        android:src="@drawable/img_22"
+                        android:background="@color/white"
+                        android:scaleType="fitXY"
+                        android:contentDescription="Crops" />
+
+                    <!-- Second Row -->
+                    <ImageButton
+                        android:id="@+id/btnNurseryPlants"
+                        android:layout_width="150dp"
+                        android:layout_height="130dp"
+                        android:src="@drawable/img_16"
+                        android:background="@color/white"
+                        android:scaleType="fitXY"
+                        android:contentDescription="Nursery Plants" />
+
+                    <ImageButton
+                        android:id="@+id/btnDripPipelines"
+                        android:layout_width="150dp"
+                        android:layout_height="130dp"
+                        android:src="@drawable/img_17"
+                        android:background="@color/white"
+                        android:scaleType="fitXY"
+                        android:contentDescription="Drip Pipelines" />
+
+                    <!-- Third Row -->
+                    <ImageButton
+                        android:id="@+id/btnPoultry"
+                        android:layout_width="150dp"
+                        android:layout_height="130dp"
+                        android:src="@drawable/img_26"
+                        android:background="@color/white"
+                        android:scaleType="fitXY"
+                        android:contentDescription="Poultry" />
+
+                    <ImageButton
+                        android:id="@+id/btnApiculture"
+                        android:layout_width="150dp"
+                        android:layout_height="130dp"
+                        android:src="@drawable/img_19"
+                        android:background="@color/white"
+                        android:scaleType="fitXY"
+                        android:contentDescription="Apiculture" />
+
+                    <!-- Fourth Row -->
+                    <ImageButton
+                        android:id="@+id/btnTractors"
+                        android:layout_width="150dp"
+                        android:layout_height="130dp"
+                        android:src="@drawable/img_20"
+                        android:background="@color/white"
+                        android:scaleType="fitXY"
+                        android:contentDescription="Tractors" />
+
+                    <ImageButton
+                        android:id="@+id/btnRentals"
+                        android:layout_width="150dp"
+                        android:layout_height="130dp"
+                        android:src="@drawable/img_21"
+                        android:background="@color/white"
+                        android:scaleType="fitXY"
+                        android:contentDescription="Rentals" />
+                </GridLayout>
+            </HorizontalScrollView>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Bottom Navigation Bar -->
+    <LinearLayout
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/rectangle_background"
+        android:padding="8dp"
+        android:gravity="center"
+        android:layout_alignParentBottom="true">
+
+        <ImageButton
+            android:id="@+id/homeIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_home"
+            android:contentDescription="Home"
+            android:scaleType="fitXY"
+            android:background="@drawable/active_icon_background" /> <!-- Removed background -->
+
+        <ImageButton
+            android:id="@+id/qrIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_qr"
+            android:contentDescription="QR"
+            android:scaleType="fitCenter"
+            android:background="@drawable/active_icon_background"
+            android:layout_marginStart="16dp" /> <!-- Increased margin -->
+
+        <ImageButton
+            android:id="@+id/videoIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/img_23"
+            android:contentDescription="Video"
+            android:scaleType="fitCenter"
+            android:background="@drawable/active_icon_background"
+            android:layout_marginStart="16dp" />
+
+        <ImageButton
+            android:id="@+id/accountIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_account"
+            android:contentDescription="Account"
+            android:scaleType="fitCenter"
+            android:background="@drawable/active_icon_background"
+            android:layout_marginStart="16dp" />
+    </LinearLayout>
+
+</RelativeLayout>

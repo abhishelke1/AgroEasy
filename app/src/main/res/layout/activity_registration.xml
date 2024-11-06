@@ -1,0 +1,293 @@
+<ScrollView
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:fillViewport="true"
+android:background="#E6F4F1"
+android:padding="16dp">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+        <!-- RelativeLayout for Back Button and Language Selector -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <!-- Back Button -->
+            <ImageView
+                android:id="@+id/backButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:clickable="true"
+                android:contentDescription="Back Button"
+                android:focusable="true"
+                android:onClick="onBackPressed"
+                android:src="@drawable/img_1"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <!-- Language Selector -->
+            <LinearLayout
+                android:id="@+id/languageSelector"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/mobile_number_box"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+                <!-- Flag Image -->
+                <ImageView
+                    android:id="@+id/imgFlag"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/img_5" />
+
+                <!-- Language Text -->
+                <TextView
+                    android:id="@+id/tvLanguage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="en"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+                <!-- Dropdown Arrow -->
+                <ImageView
+                    android:id="@+id/imgDropdown"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="4dp"
+                    android:src="@drawable/img_6" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <!-- Title Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:text="Registration"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <!-- Illustration Image -->
+        <ImageView
+            android:layout_width="340dp"
+            android:layout_height="280dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/img_4"
+            android:contentDescription="Registration Illustration" />
+
+        <!-- Instruction Text -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:text="Enter your details"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Subtext -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="4dp"
+            android:text="Fill in all details for registration"
+            android:textColor="#7A7A7A"
+            android:textSize="14sp" />
+
+        <!-- Container for Input Fields -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:background="@drawable/mobile_number_box"
+            android:padding="16dp">
+
+            <!-- Email Input Field -->
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email Address"
+                android:drawableStart="@drawable/ic_mail"
+                android:drawablePadding="10dp"
+                android:inputType="textEmailAddress"
+                android:minHeight="48dp"
+                android:padding="12dp"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+            <!-- Name Field -->
+            <EditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Name"
+                android:drawableStart="@drawable/ic_user"
+                android:drawablePadding="10dp"
+                android:padding="12dp"
+                android:inputType="textPersonName"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="12dp" />
+
+            <!-- Mobile Number Field -->
+            <EditText
+                android:id="@+id/etMobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mobile Number"
+                android:drawableStart="@drawable/ic_phone"
+                android:drawablePadding="10dp"
+                android:padding="12dp"
+                android:inputType="phone"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="12dp" />
+
+            <!-- Password Field -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Password"
+                    android:drawableStart="@drawable/ic_lock"
+                    android:drawablePadding="10dp"
+                    android:padding="12dp"
+                    android:inputType="textPassword"
+                    android:textColor="@android:color/black"
+                    android:layout_marginTop="12dp" />
+
+                <ImageView
+                    android:id="@+id/ivTogglePassword"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="16dp"
+                    android:layout_centerVertical="true"
+                    android:clickable="true"
+                    android:src="@drawable/ic_eye_closed" />
+            </RelativeLayout>
+
+            <!-- Confirm Password Field -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/etConfirmPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Confirm Password"
+                    android:drawableStart="@drawable/ic_lock"
+                    android:drawablePadding="10dp"
+                    android:padding="12dp"
+                    android:inputType="textPassword"
+                    android:textColor="@android:color/black"
+                    android:layout_marginTop="12dp" />
+
+                <ImageView
+                    android:id="@+id/ivToggleConfirmPassword"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="16dp"
+                    android:layout_centerVertical="true"
+                    android:clickable="true"
+                    android:src="@drawable/ic_eye_closed" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <!-- Get Started Button -->
+        <Button
+            android:id="@+id/btnGetStarted"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="#2ACAB0"
+            android:text="Get Started"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <!-- Login Prompt Text -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:text="Already a User?"
+        android:textColor="#000000"
+        android:textSize="14sp" />
+
+    <!-- Login Link -->
+    <TextView
+        android:id="@+id/tvLoginHere"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:clickable="true"
+        android:minHeight="48dp"
+        android:onClick="onLoginClick"
+        android:text="Login here"
+        android:textColor="#2ACAB0"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <!-- Google and Facebook Login Images -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <!-- Google Login Image -->
+    <ImageView
+        android:id="@+id/imgGoogle"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
+    android:background="@drawable/circle_shape"
+    android:contentDescription="Google Login"
+    android:clickable="true"
+    android:src="@drawable/ic_google" />  <!-- Replace with your Google vector image -->
+
+    <!-- Facebook Login Image -->
+    <ImageView
+        android:id="@+id/imgFacebook"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/circle_shape"
+        android:contentDescription="Facebook Login"
+        android:clickable="true"
+        android:src="@drawable/ic_facebook" />  <!-- Replace with your Facebook vector image -->
+
+</LinearLayout>
+</LinearLayout>
+    </ScrollView>

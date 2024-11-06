@@ -1,0 +1,207 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"> <!-- White background -->
+
+    <!-- Top Navigation (Back button, AgroEasy name, Notification icon) -->
+    <LinearLayout
+        android:id="@+id/top_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:background="#E0F7FA"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Back Button -->
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_back"
+            android:contentDescription="Back"
+            android:background="?android:selectableItemBackgroundBorderless"/>
+
+        <!-- AgroEasy Name -->
+        <TextView
+            android:id="@+id/appName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="AgroEasy"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:fontFamily="@font/abhi"
+            android:textColor="#000000"/>
+
+        <!-- Notification Icon -->
+        <ImageButton
+            android:id="@+id/notificationIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/img_12"
+            android:scaleType="fitCenter"
+            android:contentDescription="Notification"
+            android:background="?android:selectableItemBackgroundBorderless"/>
+    </LinearLayout>
+
+    <!-- Scrollable content starts here -->
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/top_navigation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <!-- Sell Products Title -->
+            <TextView
+                android:id="@+id/sellProductsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:paddingTop="16dp"
+                android:text="Sell Products"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                android:textStyle="bold"/>
+
+            <!-- Product Image -->
+            <ImageView
+                android:id="@+id/productImage"
+                android:layout_width="285dp"
+                android:layout_height="278dp"
+                android:layout_marginTop="68dp"
+                android:contentDescription="Sell Products Image"
+                android:src="@drawable/img_25"/>
+
+            <!-- "Get the Best Pricing" Text in a Single Line -->
+            <LinearLayout
+                android:id="@+id/pricingLinearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="80dp"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/productDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Get the Best "
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/pricingText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:gravity="center"
+                    android:text="Pricing."
+                    android:textColor="#00897B"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <!-- Product Description -->
+            <TextView
+                android:id="@+id/productDescriptionLong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:padding="16dp"
+                android:text="Simplify your orders, stay informed with real-time updates, and connect with experts for personalized advice."
+                android:textColor="#000000"
+                android:textSize="16sp"/>
+
+            <!-- Sell Now Button -->
+            <Button
+                android:id="@+id/sellNowButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sell Now"
+                android:textStyle="bold"
+                android:backgroundTint="#00897B"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="16dp"/>
+        </LinearLayout>
+
+    </ScrollView>
+    <!-- Scrollable content ends here -->
+
+    <!-- Bottom Navigation Bar -->
+    <LinearLayout
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/rectangle_background"
+        android:padding="8dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Home Icon -->
+        <ImageButton
+            android:id="@+id/homeIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_home"
+            android:contentDescription="Home"
+            android:scaleType="fitXY"
+            android:background="@drawable/active_icon_background"/>
+
+        <!-- QR Icon -->
+        <ImageButton
+            android:id="@+id/qrIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_qr"
+            android:contentDescription="QR"
+            android:scaleType="fitCenter"
+            android:background="@drawable/active_icon_background"
+            android:layout_marginStart="16dp"/>
+
+        <!-- Video Icon -->
+        <ImageButton
+            android:id="@+id/videoIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/img_23"
+            android:contentDescription="Video"
+            android:scaleType="fitCenter"
+            android:background="@drawable/active_icon_background"
+            android:layout_marginStart="16dp"/>
+
+        <!-- Account Icon -->
+        <ImageButton
+            android:id="@+id/accountIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_account"
+            android:contentDescription="Account"
+            android:scaleType="fitCenter"
+            android:background="@drawable/active_icon_background"
+            android:layout_marginStart="16dp"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
