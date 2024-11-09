@@ -2,6 +2,7 @@ package com.example.agroeasy
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -42,6 +43,13 @@ class SlideMenuActivity : AppCompatActivity() {
         // Load user profile data
         loadUserProfile()
 
+        val yourProductsLayout: LinearLayout = findViewById(R.id.yourProductsLayout)
+        yourProductsLayout.setOnClickListener {
+            val intent = Intent(this, MyProductActivity::class.java)  // Replace with your target activity
+            startActivity(intent)
+        }
+
+
         // Set OnClickListener for each menu item
         findViewById<LinearLayout>(R.id.layoutGovernmentPolicies).setOnClickListener {
             showPopup("Government Policies (Agriculture-Related Policies)", getGovernmentPoliciesContent())
@@ -51,6 +59,18 @@ class SlideMenuActivity : AppCompatActivity() {
         }
         findViewById<LinearLayout>(R.id.layoutKnowAboutUs).setOnClickListener {
             showPopup("Know About Us (About AgroEasy)", getKnowAboutUsContent())
+        }
+        // WhatsApp functionality
+        findViewById<LinearLayout>(R.id.layoutWhatsApp).setOnClickListener {
+            openWhatsAppChannel()
+        }
+
+        // YouTube functionality
+        findViewById<LinearLayout>(R.id.layoutYouTube).setOnClickListener {
+            openYouTubeChannel()
+        }
+        findViewById<LinearLayout>(R.id.layoutfacebook).setOnClickListener {
+            openfacebook()
         }
 
         // Logout functionality
@@ -205,5 +225,24 @@ class SlideMenuActivity : AppCompatActivity() {
         builder.setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
         val dialog = builder.create()
         dialog.show()
+    }
+
+    // Open WhatsApp Channel
+    private fun openWhatsAppChannel() {
+        val url = "https://whatsapp.com/channel/0029VavOYbG9MF96jBUzul1C"
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
+    }
+
+    // Open YouTube Channel
+    private fun openYouTubeChannel() {
+        val url = "https://www.youtube.com/@agroeasy"
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
+    }
+    private fun openfacebook() {
+        val url = "https://www.facebook.com/share/BuwudsQya1dVBjdV/"
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
     }
 }

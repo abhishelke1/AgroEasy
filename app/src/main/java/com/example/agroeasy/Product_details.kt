@@ -213,7 +213,7 @@ class ProductDetails : AppCompatActivity() {
             "Tractors" -> Intent(this, TractorsActivity::class.java)
             "Apiculture" -> Intent(this, ApicultureActivity::class.java)
             "Poultry" -> Intent(this, PoultryActivity::class.java)
-            else -> Intent(this, BuySection::class.java)  // Fallback to BuySection if no match
+            else -> Intent(this, HomePage::class.java)  // Fallback to BuySection if no match
         }
         startActivity(intent)
         finish()

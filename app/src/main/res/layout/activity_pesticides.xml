@@ -91,6 +91,7 @@
         </LinearLayout>
     </LinearLayout>
 
+
     <!-- Categories Section with White Background -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -216,9 +217,9 @@
         </HorizontalScrollView>
     </LinearLayout>
 
-    <!-- Centered RecyclerView for displaying products -->
+    <!-- Centered RecyclerView for displaying Pesticides products -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/productRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

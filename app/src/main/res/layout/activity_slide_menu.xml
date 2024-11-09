@@ -126,6 +126,7 @@
 
                     <!-- Your Products -->
                     <LinearLayout
+                        android:id="@+id/yourProductsLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -144,6 +145,7 @@
                             android:textColor="#000000"
                             android:textSize="16sp" />
                     </LinearLayout>
+
 
                     <!-- Government Policy -->
                     <LinearLayout
@@ -212,10 +214,13 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/layoutWhatsApp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:padding="10dp">
+                        android:padding="10dp"
+                        android:clickable="true"
+                        android:focusable="true">
 
                         <ImageView
                             android:layout_width="24dp"
@@ -231,12 +236,14 @@
                             android:textSize="16sp" />
                     </LinearLayout>
 
-                    <!-- Learn from YouTube -->
                     <LinearLayout
+                        android:id="@+id/layoutYouTube"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:padding="10dp">
+                        android:padding="10dp"
+                        android:clickable="true"
+                        android:focusable="true">
 
                         <ImageView
                             android:layout_width="24dp"
@@ -254,10 +261,13 @@
 
                     <!-- Rate Us -->
                     <LinearLayout
+                        android:id="@+id/layoutfacebook"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:padding="10dp">
+                        android:padding="10dp"
+                        android:clickable="true"
+                        android:focusable="true">
 
                         <ImageView
                             android:layout_width="24dp"

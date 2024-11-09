@@ -1,53 +1,52 @@
 package com.example.agroeasy
 
 import android.os.Bundle
-import android.widget.Toast
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.database.*
 
 class PesticidesActivity : AppCompatActivity() {
 
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var productRecyclerView: RecyclerView
     private lateinit var productAdapter: ProductAdapter
-    private val productList = mutableListOf<Product>()
+    private lateinit var productList: MutableList<Product>
+    private lateinit var database: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_crops) // Ensure activity_crops layout file exists and includes recyclerView
+        setContentView(R.layout.activity_pesticides) // Make sure this XML layout exists
 
-        // Initialize RecyclerView
-        recyclerView = findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        productRecyclerView = findViewById(R.id.productRecyclerView)
+        productRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Initialize adapter with empty productList and set to RecyclerView
+        productList = mutableListOf()
         productAdapter = ProductAdapter(productList)
-        recyclerView.adapter = productAdapter
+        productRecyclerView.adapter = productAdapter
 
-        // Fetch products from Firebase Firestore
-        fetchProductData()
+        // Firebase Reference to "Pesticides" category in "products" node
+        database = FirebaseDatabase.getInstance().reference.child("products").child("Pesticides")
+
+        // Fetch products from Firebase
+        fetchProductDetails()
     }
 
-    private fun fetchProductData() {
-        val db = FirebaseFirestore.getInstance()
-        db.collection("products") // Assuming 'products' is your collection name
-            .whereEqualTo("category", "Crops") // Filter by category if needed
-            .get()
-            .addOnSuccessListener { documents ->
-                processDocuments(documents)
+    private fun fetchProductDetails() {
+        // Fetch product details from the "Pesticides" node
+        database.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                productList.clear()
+                for (productSnapshot in snapshot.children) {
+                    val product = productSnapshot.getValue(Product::class.java)
+                    product?.let { productList.add(it) }
+                }
+                productAdapter.notifyDataSetChanged()
             }
-            .addOnFailureListener { e ->
-                Toast.makeText(this, "Error fetching data: ${e.message}", Toast.LENGTH_SHORT).show()
-            }
-    }
 
-    private fun processDocuments(documents: QuerySnapshot) {
-        for (document in documents) {
-            val product = document.toObject(Product::class.java)
-            productList.add(product)
-        }
-        productAdapter.notifyDataSetChanged() // Notify adapter of data changes
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("PesticidesActivity", "Failed to fetch products: ${error.message}")
+            }
+        })
     }
 }
