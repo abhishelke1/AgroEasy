@@ -94,6 +94,16 @@
                     android:paddingStart="8dp"
                     android:textSize="16sp" />
             </LinearLayout>
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+            android:visibility="gone"
+            android:indeterminate="true" />
+
+
+
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
@@ -138,6 +148,7 @@
                         android:background="@color/white"
                         android:scaleType="fitXY"
                         android:contentDescription="Nursery Plants" />
+
 
                     <ImageButton
                         android:id="@+id/btnDripPipelines"

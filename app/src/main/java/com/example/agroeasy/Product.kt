@@ -1,10 +1,13 @@
 package com.example.agroeasy
-
 data class Product(
-    val sellerName: String = "",
-    val description: String = "",
     val title: String = "",
-    val timestamp: Long = 0L,
-    val photoUrls: List<String>? = null, // List of image URLs for the product
-    val profilePictureUrl: String = "" // URL of the seller's profile picture
+    val description: String = "",
+    val price: String = "",
+    val userAdress: String = "",
+    val userNumber: String = "",
+    val userEmail: String = "",
+    val productImage1: String = "",
+    val productImage2: String = "",
+    val productImage3: String = "",
+    val productImage4: String = ""
 )

@@ -7,6 +7,15 @@
     android:background="@color/white"
     tools:context=".ProfilePageActivity">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:indeterminate="true"
+        android:layout_alignParentTop="true" />  <!-- Ensure it's at the top if necessary -->
+
     <!-- Back Button -->
     <ImageButton
         android:id="@+id/backButton"
@@ -28,14 +37,13 @@
         android:layout_alignParentTop="true" />
 
     <!-- Profile Picture -->
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profilePicture"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="130dp"
+        android:layout_height="140dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp"
-        android:src="@drawable/img_24"
-        android:background="@drawable/circle_shape" />
+        android:layout_marginTop="100dp"
+        android:src="@drawable/img_24" />
 
     <!-- Profile Name -->
     <EditText
@@ -105,7 +113,7 @@
         android:layout_below="@id/tvEmailLabel"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:text="pras@kote11@gmail.com"
+        android:text="Enter your Email"
         android:textSize="16sp"
         android:textColor="@android:color/black"
         android:background="@null"
@@ -140,7 +148,7 @@
         android:layout_below="@id/tvAddressLabel"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:text="-------------------"
+        android:text=" Enter your Address"
         android:textSize="16sp"
         android:textColor="@android:color/black"
         android:background="@null"
@@ -179,7 +187,7 @@
         android:layout_below="@id/btnUpdateProfile"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-       />
+        />
 
     <!-- Help Section -->
     <TextView

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -31,7 +30,8 @@
                 android:src="@drawable/img_24"
                 android:scaleType="centerCrop"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/circle_shape" />
+                android:background="@drawable/circle_shape"
+                android:contentDescription="Profile picture" />
 
             <!-- User Name and Time -->
             <LinearLayout
@@ -60,15 +60,6 @@
             </LinearLayout>
 
             <!-- Read More Button -->
-            <Button
-                android:id="@+id/btnReadMore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Read more"
-                android:layout_alignParentEnd="true"
-                android:backgroundTint="@color/teal"
-                android:textColor="@android:color/white"
-                android:textSize="12sp" />
         </RelativeLayout>
 
         <!-- Product Title -->
@@ -93,6 +84,46 @@
             android:maxLines="2"
             android:ellipsize="end" />
 
+        <!-- Product Price -->
+        <TextView
+            android:id="@+id/productPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Price"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="4dp"
+            android:maxLines="2"
+            android:ellipsize="end" />
+
+        <TextView
+            android:id="@+id/UserAdress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Address"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="4dp"
+            android:maxLines="2"
+            android:ellipsize="end" />
+
+        <TextView
+            android:id="@+id/UserNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mobile number"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="4dp"
+            android:maxLines="2"
+            android:ellipsize="end" />
+        <TextView
+            android:id="@+id/Useremail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="user email"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="4dp"
+            android:maxLines="2"
+            android:ellipsize="end" />
+
         <!-- Product Images Row -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -104,21 +135,36 @@
                 android:id="@+id/ivProductImage1"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                android:contentDescription="Product Image 1"
+                android:src="@drawable/dummy_image" /> <!-- Use your image resource here -->
 
             <ImageView
                 android:id="@+id/ivProductImage2"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:scaleType="centerCrop"
-                android:layout_marginStart="8dp" />
+                android:layout_marginStart="8dp"
+                android:contentDescription="Product Image 2"
+                android:src="@drawable/dummy_image" /> <!-- Use your image resource here -->
 
             <ImageView
                 android:id="@+id/ivProductImage3"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:scaleType="centerCrop"
-                android:layout_marginStart="8dp" />
+                android:layout_marginStart="8dp"
+                android:contentDescription="Product Image 3"
+                android:src="@drawable/dummy_image" /> <!-- Use your image resource here -->
+
+            <ImageView
+                android:id="@+id/ivProductImage4"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="centerCrop"
+                android:layout_marginStart="8dp"
+                android:contentDescription="Product Image 4"
+                android:src="@drawable/dummy_image" /> <!-- Use your image resource here -->
         </LinearLayout>
     </LinearLayout>
 
@@ -152,32 +198,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:text="Save"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <!-- Feedback Button -->
-        <LinearLayout
-            android:id="@+id/feedbackButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="4dp">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_feedback"
-                android:contentDescription="Feedback Icon"
-                app:tint="@android:color/black" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="Feedback"
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
         </LinearLayout>

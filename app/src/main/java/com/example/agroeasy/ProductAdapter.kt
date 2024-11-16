@@ -1,84 +1,71 @@
 package com.example.agroeasy
 
+import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import java.text.SimpleDateFormat
-import java.util.*
+import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 
-class ProductAdapter(private val products: MutableList<Product>) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+class ProductAdapter(
+    private val context: Context,
+    private val productList: List<Product> // Receive the list from the activity
+) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+
+    private val storageReference: StorageReference = FirebaseStorage.getInstance().reference
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.product_item, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.product_item, parent, false)
         return ProductViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        val product = products[position]
-        holder.bind(product)
+        val product = productList[position]
+
+        holder.tvTitle.text = product.title
+        holder.tvDescription.text = product.description
+        holder.productPrice.text = product.price
+        holder.userAdress.text = product.userAdress
+        holder.userNumber.text = product.userNumber
+        holder.userEmail.text = product.userEmail
+
+        // Load images from Firebase Storage using Glide
+        loadImageFromStorage(product.productImage1, holder.ivProductImage1)
+        loadImageFromStorage(product.productImage2, holder.ivProductImage2)
+        loadImageFromStorage(product.productImage3, holder.ivProductImage3)
+        loadImageFromStorage(product.productImage4, holder.ivProductImage4)
     }
 
-    override fun getItemCount(): Int = products.size
+    override fun getItemCount() = productList.size
 
-    // Method to add a new product to the list
-    fun addProduct(newProduct: Product) {
-        products.add(0, newProduct) // Add the new product at the top
-        notifyDataSetChanged() // Notify the adapter to update the list
-    }
-
+    // ViewHolder class to bind views
     class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val userName: TextView = itemView.findViewById(R.id.tvUserName)
-        private val uploadTime: TextView = itemView.findViewById(R.id.tvUploadTime)
-        private val title: TextView = itemView.findViewById(R.id.tvTitle)
-        private val description: TextView = itemView.findViewById(R.id.tvDescription)
-        private val imageView1: ImageView = itemView.findViewById(R.id.ivProductImage1)
-        private val imageView2: ImageView = itemView.findViewById(R.id.ivProductImage2)
-        private val imageView3: ImageView = itemView.findViewById(R.id.ivProductImage3)
-        private val profilePicture: ImageView = itemView.findViewById(R.id.ivProfilePicture)
+        val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
+        val tvDescription: TextView = itemView.findViewById(R.id.tvDescription)
+        val productPrice: TextView = itemView.findViewById(R.id.productPrice)
+        val userAdress: TextView = itemView.findViewById(R.id.UserAdress)
+        val userNumber: TextView = itemView.findViewById(R.id.UserNumber)
+        val userEmail: TextView = itemView.findViewById(R.id.Useremail)
+        val ivProductImage1: ImageView = itemView.findViewById(R.id.ivProductImage1)
+        val ivProductImage2: ImageView = itemView.findViewById(R.id.ivProductImage2)
+        val ivProductImage3: ImageView = itemView.findViewById(R.id.ivProductImage3)
+        val ivProductImage4: ImageView = itemView.findViewById(R.id.ivProductImage4)
+    }
 
-        fun bind(product: Product) {
-            userName.text = product.sellerName
-            uploadTime.text = formatTimestamp(product.timestamp)
-            title.text = product.title
-            description.text = product.description
-
-            // Load product images (use Glide or any other image loading library)
-            product.photoUrls?.let { photoUrls ->
-                if (photoUrls.isNotEmpty()) {
-                    Glide.with(itemView.context)
-                        .load(photoUrls[0])
-                        .placeholder(R.drawable.placeholder) // Add a placeholder image
-                        .into(imageView1)
-                }
-                if (photoUrls.size > 1) {
-                    Glide.with(itemView.context)
-                        .load(photoUrls[1])
-                        .placeholder(R.drawable.placeholder) // Add a placeholder image
-                        .into(imageView2)
-                }
-                if (photoUrls.size > 2) {
-                    Glide.with(itemView.context)
-                        .load(photoUrls[2])
-                        .placeholder(R.drawable.placeholder) // Add a placeholder image
-                        .into(imageView3)
-                }
-            }
-
-            // Bind profile picture and name
-            Glide.with(itemView.context)
-                .load(product.profilePictureUrl) // Load the seller's profile picture
-                .placeholder(R.drawable.img_24) // Add a default image in case of failure
-                .into(profilePicture)
-        }
-
-        private fun formatTimestamp(timestamp: Long): String {
-            val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-            val date = Date(timestamp)
-            return sdf.format(date)
+    // Function to load images from Firebase Storage into ImageView
+    private fun loadImageFromStorage(imageUrl: String, imageView: ImageView) {
+        val imageRef = storageReference.child("images/$imageUrl")
+        imageRef.downloadUrl.addOnSuccessListener { uri ->
+            Glide.with(context).load(uri).into(imageView)
+        }.addOnFailureListener { exception ->
+            Log.e("FirebaseStorage", "Error loading image", exception)
         }
     }
 }

@@ -2,50 +2,53 @@ package com.example.agroeasy
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 
 class PesticidesActivity : AppCompatActivity() {
 
-    private lateinit var productRecyclerView: RecyclerView
+    private lateinit var recyclerView: RecyclerView
     private lateinit var productAdapter: ProductAdapter
-    private lateinit var productList: MutableList<Product>
-    private lateinit var database: DatabaseReference
+    private val productList: MutableList<Product> = mutableListOf()
+
+    private val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().getReference("Pesticides")
+    private val storageReference: StorageReference = FirebaseStorage.getInstance().reference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_pesticides) // Make sure this XML layout exists
+        setContentView(R.layout.activity_pesticides)
 
-        productRecyclerView = findViewById(R.id.productRecyclerView)
-        productRecyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView = findViewById(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
-        productList = mutableListOf()
-        productAdapter = ProductAdapter(productList)
-        productRecyclerView.adapter = productAdapter
+        // Initialize the adapter with the context and empty list
+        productAdapter = ProductAdapter(this, productList)
+        recyclerView.adapter = productAdapter
 
-        // Firebase Reference to "Pesticides" category in "products" node
-        database = FirebaseDatabase.getInstance().reference.child("products").child("Pesticides")
-
-        // Fetch products from Firebase
-        fetchProductDetails()
+        fetchProductData() // Fetch product data from Firebase
     }
 
-    private fun fetchProductDetails() {
-        // Fetch product details from the "Pesticides" node
-        database.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                productList.clear()
-                for (productSnapshot in snapshot.children) {
-                    val product = productSnapshot.getValue(Product::class.java)
-                    product?.let { productList.add(it) }
+    // Fetch product data from Firebase Realtime Database
+    private fun fetchProductData() {
+        databaseReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                productList.clear() // Clear any existing data
+                for (snapshot in dataSnapshot.children) {
+                    val product = snapshot.getValue(Product::class.java)
+                    product?.let {
+                        productList.add(it)
+                    }
                 }
-                productAdapter.notifyDataSetChanged()
+                productAdapter.notifyDataSetChanged() // Notify adapter to update UI
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Log.e("PesticidesActivity", "Failed to fetch products: ${error.message}")
+                Log.e("Firebase", "Error fetching data: ${error.message}")
             }
         })
     }

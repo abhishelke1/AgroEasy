@@ -1,7 +1,10 @@
 package com.example.agroeasy
 
 data class User(
-    val name: String,
-    val mobile: String,
-    val password: String
+    val userId: String = "",
+    val name: String = "",
+    val email: String = "",
+    val mobile: String = "",
+    val address: String = "",
+    val profilePictureUrl: String = ""
 )

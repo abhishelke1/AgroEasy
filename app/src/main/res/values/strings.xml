@@ -8,6 +8,19 @@
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
+    <string-array name="product_categories">
+        <item>Select Category</item>
+        <item>Pesticides</item>
+        <item>Crops</item>
+        <item>Nursery Plants</item>
+        <item>Drip Pipelines</item>
+        <item>Rentals</item>
+        <item>Tractors</item>
+        <item>Apiculture</item>
+        <item>Poultry</item>
+    </string-array>
+
+
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 

@@ -4,8 +4,10 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -18,11 +20,15 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.database.ValueEventListener
+import androidx.core.content.FileProvider
+import java.io.File
+import java.io.InputStream
 
 class SlideMenuActivity : AppCompatActivity() {
 
     private lateinit var profileIcon: ImageView
     private lateinit var userNameTextView: TextView
+    private lateinit var progressBar: ProgressBar
     private lateinit var auth: FirebaseAuth
     private lateinit var databaseRef: DatabaseReference
     private lateinit var storageRef: FirebaseStorage
@@ -31,6 +37,8 @@ class SlideMenuActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_slide_menu)
+
+
 
         // Initialize Firebase
         auth = FirebaseAuth.getInstance()
@@ -43,10 +51,32 @@ class SlideMenuActivity : AppCompatActivity() {
         // Load user profile data
         loadUserProfile()
 
+
         val yourProductsLayout: LinearLayout = findViewById(R.id.yourProductsLayout)
         yourProductsLayout.setOnClickListener {
             val intent = Intent(this, MyProductActivity::class.java)  // Replace with your target activity
             startActivity(intent)
+        }
+
+        val saved: LinearLayout = findViewById(R.id.saved)
+        saved.setOnClickListener {
+            val intent = Intent(this, Saved::class.java)  // Replace with your target activity
+            startActivity(intent)
+        }
+
+
+
+        val weatherLayout: LinearLayout = findViewById(R.id.layoutWeather)
+        weatherLayout.setOnClickListener {
+            // Redirect to the Weather screen
+            val intent = Intent(this, Weather::class.java) // Replace with your weather activity
+            startActivity(intent)
+        }
+// Inside your SlideMenuActivity or equivalent activity
+        val promoteButton: LinearLayout = findViewById(R.id.promote)
+
+        promoteButton.setOnClickListener {
+            shareAppPromotion() // Call the function to promote the app
         }
 
 
@@ -92,42 +122,46 @@ class SlideMenuActivity : AppCompatActivity() {
     private fun initializeUIElements() {
         profileIcon = findViewById(R.id.ivProfilePicture)
         userNameTextView = findViewById(R.id.tvUserName)
+        progressBar = findViewById(R.id.progressBar)  // Initialize ProgressBar
     }
 
     private fun loadUserProfile() {
         val currentUser = auth.currentUser
         if (currentUser != null) {
+            progressBar.visibility = View.VISIBLE // Show ProgressBar
+            // Load user name
             databaseRef.child(currentUser.uid).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
                         val userName = snapshot.child("name").getValue(String::class.java)
                         userNameTextView.text = userName ?: "User Name"
-                        loadProfilePicture(currentUser.uid)
                     } else {
                         showToast("User data not found.")
                     }
+                    progressBar.visibility = View.GONE // Hide ProgressBar after completion
                 }
 
                 override fun onCancelled(error: DatabaseError) {
                     showToast("Database error: ${error.message}")
+                    progressBar.visibility = View.GONE // Hide ProgressBar on error
                 }
             })
+
+            // Load profile picture
+            val profilePictureRef = storageRef.getReference("profile_pictures/${currentUser.uid}.jpg")
+            profilePictureRef.downloadUrl.addOnSuccessListener { uri ->
+                Glide.with(this).load(uri).into(profileIcon)
+                progressBar.visibility = View.GONE // Hide ProgressBar after loading
+            }.addOnFailureListener {
+                showToast("Failed to load profile picture.")
+                progressBar.visibility = View.GONE // Hide ProgressBar on failure
+            }
         } else {
             showToast("User not authenticated.")
+            progressBar.visibility = View.GONE // Ensure ProgressBar is hidden
         }
     }
 
-    private fun loadProfilePicture(uid: String) {
-        val profilePicRef = storageRef.getReference("users/$uid/profile.jpg")
-        profilePicRef.downloadUrl.addOnSuccessListener { uri ->
-            Glide.with(this)
-                .load(uri)
-                .circleCrop()
-                .into(profileIcon)
-        }.addOnFailureListener {
-            profileIcon.setImageResource(R.drawable.img_24) // Fallback image
-        }
-    }
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
@@ -233,6 +267,42 @@ class SlideMenuActivity : AppCompatActivity() {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(intent)
     }
+    private fun shareAppPromotion() {
+        // Text to be shared
+        val promoText = """
+        AgroEasy: Revolutionizing Farming with Technology
+        
+        AgroEasy is your all-in-one agricultural assistant, making farming simpler, smarter, and more efficient. You can buy and sell products, check real-time weather updates, and scan products for quality assessment.
+        
+        Download AgroEasy now and experience the future of farming!
+    """.trimIndent()
+
+        // Get the image from the drawable folder
+        val imageFile = File(cacheDir, "promote.png")
+        val inputStream = resources.openRawResource(R.drawable.promote)
+        imageFile.outputStream().use { inputStream.copyTo(it) }
+
+        // Get the URI using FileProvider
+        val imageUri = FileProvider.getUriForFile(
+            this,
+            "$packageName.provider", // Ensure this matches the authorities declared in the manifest
+            imageFile
+        )
+
+        // Creating a sharing intent
+        val shareIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, promoText) // Add the promotional text
+            putExtra(Intent.EXTRA_STREAM, imageUri) // Add the image URI
+            type = "image/*" // Specify the type as an image
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION) // Grant permission to read the image URI
+        }
+
+        // Starting the share intent
+        startActivity(Intent.createChooser(shareIntent, "Share AgroEasy with"))
+    }
+
+
 
     // Open YouTube Channel
     private fun openYouTubeChannel() {

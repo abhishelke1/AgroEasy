@@ -30,11 +30,14 @@
                 android:padding="16dp">
 
                 <!-- Profile Icon (Profile Picture) -->
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/ivProfilePicture"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
-                    android:src="@drawable/img_24" />
+                    android:src="@drawable/img_24"
+                    android:layout_gravity="center"
+                    android:contentDescription="Profile Picture" />
+
 
                 <!-- Profile Name and Edit Button -->
                 <LinearLayout
@@ -100,17 +103,19 @@
                             android:layout_marginStart="16dp"
                             android:text="Categories"
                             android:textColor="#000000"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <!-- Saved Products -->
                     <LinearLayout
+                        android:id="@+id/saved"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:padding="10dp">
 
-                        <ImageView
+                    <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_saved_products" />
@@ -121,7 +126,8 @@
                             android:layout_marginStart="16dp"
                             android:text="Saved Products"
                             android:textColor="#000000"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <!-- Your Products -->
@@ -139,11 +145,39 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="20dp"
                             android:layout_marginStart="16dp"
                             android:text="Your Products"
                             android:textColor="#000000"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Weather Option (New) -->
+                    <LinearLayout
+                        android:id="@+id/layoutWeather"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_weather" /> <!-- Add appropriate weather icon -->
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="Weather"
+                            android:textColor="#000000"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
 
@@ -155,7 +189,9 @@
                     android:orientation="horizontal"
                     android:padding="10dp"
                     android:clickable="true"
-                    android:focusable="true">
+                    android:focusable="true"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_vertical">
 
                     <ImageView
                         android:layout_width="24dp"
@@ -168,7 +204,8 @@
                         android:layout_marginStart="16dp"
                         android:text="Government Policy"
                         android:textColor="#000000"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                     <!-- Market Rate -->
@@ -189,38 +226,56 @@
                             android:layout_marginStart="16dp"
                             android:text="Market Rate"
                             android:textColor="#000000"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:visibility="gone"
+                        android:indeterminate="true" />
 
                     <!-- Promote WhatsApp -->
                     <LinearLayout
+                        android:id="@+id/promote"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:padding="10dp">
+                        android:padding="10dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"> <!-- Vertically center content -->
 
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/ic_promote" />
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_promote"
+                        android:contentDescription="Promote Icon" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:text="Promote"
-                            android:textColor="#000000"
-                            android:textSize="16sp" />
-                    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="Promote"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:textStyle="bold" /> <!-- Bold text for better visibility -->
+                </LinearLayout>
 
-                    <LinearLayout
+            <LinearLayout
                         android:id="@+id/layoutWhatsApp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:padding="10dp"
                         android:clickable="true"
-                        android:focusable="true">
+                        android:focusable="true"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center_vertical">
 
                         <ImageView
                             android:layout_width="24dp"
@@ -233,7 +288,8 @@
                             android:layout_marginStart="16dp"
                             android:text="WhatsApp"
                             android:textColor="#000000"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -243,7 +299,9 @@
                         android:orientation="horizontal"
                         android:padding="10dp"
                         android:clickable="true"
-                        android:focusable="true">
+                        android:focusable="true"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_vertical">
 
                         <ImageView
                             android:layout_width="24dp"
@@ -256,7 +314,8 @@
                             android:layout_marginStart="16dp"
                             android:text="Learn from YouTube"
                             android:textColor="#000000"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <!-- Rate Us -->
@@ -267,7 +326,9 @@
                         android:orientation="horizontal"
                         android:padding="10dp"
                         android:clickable="true"
-                        android:focusable="true">
+                        android:focusable="true"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_vertical">
 
                         <ImageView
                             android:layout_width="24dp"
@@ -280,7 +341,8 @@
                             android:layout_marginStart="16dp"
                             android:text="Rate Us"
                             android:textColor="#000000"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <!-- Contact Us -->
@@ -291,7 +353,9 @@
                         android:orientation="horizontal"
                         android:padding="10dp"
                         android:clickable="true"
-                        android:focusable="true">
+                        android:focusable="true"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_vertical">
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
@@ -302,7 +366,8 @@
                             android:layout_marginStart="16dp"
                             android:text="Contact Us"
                             android:textColor="#000000"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <!-- Terms and Conditions -->
@@ -313,7 +378,9 @@
                     android:orientation="horizontal"
                     android:padding="10dp"
                     android:clickable="true"
-                    android:focusable="true">
+                    android:focusable="true"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_vertical">
 
                     <ImageView
                         android:layout_width="24dp"
@@ -326,7 +393,8 @@
                         android:layout_marginStart="16dp"
                         android:text="Terms and Conditions"
                         android:textColor="#000000"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
 
@@ -338,7 +406,9 @@
                     android:orientation="horizontal"
                     android:padding="10dp"
                     android:clickable="true"
-                    android:focusable="true">
+                    android:focusable="true"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_vertical">
 
                     <ImageView
                         android:layout_width="24dp"
@@ -351,7 +421,8 @@
                         android:layout_marginStart="16dp"
                         android:text="Know About Us"
                         android:textColor="#000000"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
                     <!-- Logout -->
                     <LinearLayout
@@ -361,7 +432,9 @@
                         android:orientation="horizontal"
                         android:padding="10dp"
                         android:clickable="true"
-                        android:focusable="true">
+                        android:focusable="true"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_vertical">
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
@@ -372,13 +445,15 @@
                             android:layout_marginStart="16dp"
                             android:text="Logout"
                             android:textColor="#000000"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                 </LinearLayout>
             </ScrollView>
         </LinearLayout>
     </RelativeLayout>
+
 
     <!-- Sliding Menu -->
 </androidx.drawerlayout.widget.DrawerLayout>

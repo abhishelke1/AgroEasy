@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.text.InputType
 import android.util.Patterns
 import android.widget.*
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -46,15 +45,15 @@ class Registration_Activity : AppCompatActivity() {
 
         // Back button listener
         backButton.setOnClickListener {
-            onBackPressed()  // Navigate back to the previous activity
+            onBackPressed()
         }
 
-        // Toggle password visibility for password field
+        // Toggle password visibility for the password field
         togglePasswordVisibility.setOnClickListener {
             togglePasswordVisibility(passwordEditText, togglePasswordVisibility)
         }
 
-        // Toggle password visibility for confirm password field
+        // Toggle password visibility for the confirm password field
         toggleConfirmPasswordVisibility.setOnClickListener {
             togglePasswordVisibility(confirmPasswordEditText, toggleConfirmPasswordVisibility)
         }
@@ -70,19 +69,20 @@ class Registration_Activity : AppCompatActivity() {
         }
     }
 
-    // Function to toggle password visibility
     private fun togglePasswordVisibility(editText: EditText, toggleIcon: ImageView) {
         if (editText.inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+            // Change input type to password
             editText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-            toggleIcon.setImageResource(R.drawable.ic_eye_closed) // Change to closed eye icon
+            toggleIcon.setImageResource(R.drawable.ic_eye_closed)
         } else {
+            // Change input type to visible password
             editText.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-            toggleIcon.setImageResource(R.drawable.ic_eye_open) // Change to open eye icon
+            toggleIcon.setImageResource(R.drawable.ic_eye_open)
         }
-        editText.setSelection(editText.text.length) // Set cursor to the end of the text
+        // Set the cursor to the end of the text
+        editText.setSelection(editText.text.length)
     }
 
-    // Function to validate user input and register
     private fun validateAndRegisterUser() {
         val name = nameEditText.text.toString().trim()
         val email = emailEditText.text.toString().trim()
@@ -90,81 +90,46 @@ class Registration_Activity : AppCompatActivity() {
         val password = passwordEditText.text.toString().trim()
         val confirmPassword = confirmPasswordEditText.text.toString().trim()
 
-        // Validate fields
         when {
             name.isEmpty() -> nameEditText.error = "Name is required"
             !isValidEmail(email) -> emailEditText.error = "Invalid email address"
             mobile.isEmpty() -> mobileEditText.error = "Mobile number is required"
             password.isEmpty() -> passwordEditText.error = "Password is required"
             password != confirmPassword -> confirmPasswordEditText.error = "Passwords do not match"
-            else -> checkEmailInFirebaseAuth(email, name, mobile, password)
+            else -> registerUser(email, password, name, mobile)
         }
     }
 
-    // Function to validate email format
     private fun isValidEmail(email: String): Boolean {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
-    // Function to check if the email is registered in Firebase Authentication
-    private fun checkEmailInFirebaseAuth(email: String, name: String, mobile: String, password: String) {
-        auth.fetchSignInMethodsForEmail(email).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val signInMethods = task.result?.signInMethods ?: emptyList<String>()
-                if (signInMethods.isNotEmpty()) {
-                    // Email already exists, show dialog to prompt login
-                    showEmailExistsDialog()
-                } else {
-                    // Email doesn't exist, create new account
-                    registerUserWithFirebaseAuth(email, password, name, mobile)
-                }
-            } else {
-                Toast.makeText(this, "Failed to check email. Please try again.", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    // Function to show a dialog if the email already exists
-    private fun showEmailExistsDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("User Exists")
-        builder.setMessage("This email is already registered. Please log in.")
-        builder.setPositiveButton("Login") { dialog, _ ->
-            startActivity(Intent(this, LoginActivity::class.java))
-            dialog.dismiss()
-        }
-        builder.setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
-        builder.show()
-    }
-
-    // Function to register a new user with Firebase Authentication
-    private fun registerUserWithFirebaseAuth(email: String, password: String, name: String, mobile: String) {
+    private fun registerUser(email: String, password: String, name: String, mobile: String) {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                // Account created successfully, save name and mobile in Firebase Realtime Database
-                saveUserToFirebaseDatabase(name, email, mobile)
+                val user = auth.currentUser
+                user?.let {
+                    saveUserToDatabase(it.uid, name, email, mobile)
+                }
             } else {
                 Toast.makeText(this, "Registration failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    // Function to save the user's name and mobile to Firebase Realtime Database
-    private fun saveUserToFirebaseDatabase(name: String, email: String, mobile: String) {
-        val userId = email.replace(".", "_") // Firebase keys cannot contain dots
-        val userMap = hashMapOf(
+    private fun saveUserToDatabase(uid: String, name: String, email: String, mobile: String) {
+        val userMap = mapOf(
             "name" to name,
+            "email" to email,
             "mobile" to mobile
         )
-
-        database.child("users").child(userId).setValue(userMap).addOnCompleteListener { task ->
+        database.child("Users").child(uid).setValue(userMap).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show()
-                // Redirect to LoginActivity
                 startActivity(Intent(this, LoginActivity::class.java))
-                finish() // Close the Registration activity
+                finish()
             } else {
-                Toast.makeText(this, "Failed to save user data. Please try again.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Failed to save user data.", Toast.LENGTH_SHORT).show()
             }
         }
     }
