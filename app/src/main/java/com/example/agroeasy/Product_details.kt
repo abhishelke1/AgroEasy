@@ -1,6 +1,5 @@
 package com.example.agroeasy
 
-import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -11,6 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -32,22 +32,17 @@ class ProductDetails : AppCompatActivity() {
 
     private val pickImagesLauncher = registerForActivityResult(ActivityResultContracts.GetMultipleContents()) { uris ->
         selectedPhotoUris.clear()
-        selectedPhotoUris.addAll(uris.take(4))
+        selectedPhotoUris.addAll(uris.take(4)) // Limit to 4 images
         displaySelectedPhotos()
-        Log.d("ProductDetails", "Selected images: $selectedPhotoUris") // Logging selected images
+        Log.d("ProductDetails", "Selected images: $selectedPhotoUris")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        window.decorView.systemUiVisibility = (
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                )
-
         setContentView(R.layout.activity_product_details)
 
+        // Initialize UI components
         titleInput = findViewById(R.id.titleInput)
         descriptionInput = findViewById(R.id.descriptionInput)
         addressInput = findViewById(R.id.addressInput)
@@ -63,13 +58,8 @@ class ProductDetails : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.sellNowButton).setOnClickListener {
+            it.isEnabled = false  // Prevent multiple clicks
             saveProductDetails()
-        }
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.productDetailsContainer)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
         }
     }
 
@@ -78,7 +68,6 @@ class ProductDetails : AppCompatActivity() {
             "Pesticides", "Crops", "Nursery Plants", "Drip Pipelines",
             "Rentals", "Tractors", "Apiculture", "Poultry"
         )
-
         val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         categorySpinner.adapter = spinnerAdapter
@@ -99,59 +88,71 @@ class ProductDetails : AppCompatActivity() {
     }
 
     private fun saveProductDetails() {
+        progressBar.visibility = View.VISIBLE
+
         val title = titleInput.text.toString().trim()
         val description = descriptionInput.text.toString().trim()
         val address = addressInput.text.toString().trim()
-        val price = priceInput.text.toString().trim()
+        val price = priceInput.text.toString().toDoubleOrNull()
         val category = categorySpinner.selectedItem.toString()
+        val uploaderId = FirebaseAuth.getInstance().currentUser?.uid
 
-        if (title.isEmpty() || description.isEmpty() || address.isEmpty() || price.isEmpty() || selectedPhotoUris.isEmpty()) {
+        if (uploaderId == null || title.isEmpty() || description.isEmpty() || address.isEmpty() || price == null || selectedPhotoUris.isEmpty()) {
+            progressBar.visibility = View.GONE
+            findViewById<Button>(R.id.sellNowButton).isEnabled = true
             Toast.makeText(this, "Please fill in all fields and select photos", Toast.LENGTH_SHORT).show()
             return
         }
 
-        if (!price.matches(Regex("^[0-9]+(\\.[0-9]{1,2})?$"))) {
-            Toast.makeText(this, "Please enter a valid price", Toast.LENGTH_SHORT).show()
-            return
-        }
+        val productId = database.child("products").child(category).push().key ?: return
 
-        val productId = database.child("products").push().key // Generate a unique key for the product
-        val productData = hashMapOf(
-            "title" to title,
-            "description" to description,
-            "address" to address,
-            "price" to price.toDouble(),
-            "category" to category,
-            "timestamp" to System.currentTimeMillis()
-        )
+        // Fetch uploader details asynchronously
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val uploaderName = currentUser?.displayName ?: "Unknown"
+        val uploaderEmail = currentUser?.email ?: "Unknown"
+        val uploaderProfilePhotoUrl = currentUser?.photoUrl?.toString() ?: ""
 
-        progressBar.visibility = View.VISIBLE
-        Log.d("ProductDetails", "Saving product details: $productData")
+        FirebaseDatabase.getInstance().getReference("Users")
+            .child(uploaderId).child("mobile")
+            .get()
+            .addOnSuccessListener { snapshot ->
+                val uploaderMobile = snapshot.value?.toString() ?: "N/A"
 
-        // Save product data to Realtime Database
-        if (productId != null) { // Ensure productId is not null
-            database.child("products").child(productId).setValue(productData)
-                .addOnSuccessListener {
-                    uploadImagesToFirebase(productId, category)  // Use productId to upload images
-                    Log.d("ProductDetails", "Product details saved with ID: $productId")
-                }
-                .addOnFailureListener { e ->
-                    progressBar.visibility = View.GONE
-                    Toast.makeText(this, "Failed to save product details: ${e.message}", Toast.LENGTH_SHORT).show()
-                    Log.e("ProductDetails", "Failed to save product details: ${e.message}", e)
-                }
-        }
+                val productData = mapOf(
+                    "title" to title,
+                    "description" to description,
+                    "address" to address,
+                    "price" to price,
+                    "timestamp" to System.currentTimeMillis(), // Timestamp stored as Long
+                    "uploaderId" to uploaderId,
+                    "uploaderName" to uploaderName,
+                    "uploaderEmail" to uploaderEmail,
+                    "uploaderMobile" to uploaderMobile,
+                    "uploaderProfilePhotoUrl" to uploaderProfilePhotoUrl,
+                    "status" to "public",
+                    "photos" to emptyList<String>() // Placeholder for photos
+                )
+
+                // Save product data
+                database.child("products").child(category).child(productId).setValue(productData)
+                    .addOnSuccessListener {
+                        uploadImagesToFirebase(productId, category)
+                    }
+                    .addOnFailureListener { e ->
+                        progressBar.visibility = View.GONE
+                        findViewById<Button>(R.id.sellNowButton).isEnabled = true
+                        Toast.makeText(this, "Failed to save product details: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
+            }
+            .addOnFailureListener { e ->
+                progressBar.visibility = View.GONE
+                findViewById<Button>(R.id.sellNowButton).isEnabled = true
+                Toast.makeText(this, "Failed to fetch mobile number: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
     }
 
     private fun uploadImagesToFirebase(productId: String, category: String) {
-        if (selectedPhotoUris.isEmpty()) {
-            // No images to upload, directly complete the upload process
-            progressBar.visibility = View.GONE
-            Toast.makeText(this, "Product uploaded successfully without images", Toast.LENGTH_SHORT).show()
-            navigateToCategoryActivity(category)
-            return
-        }
-
+        val uploadedUrls = mutableListOf<String>()
         var uploadCount = 0
         val totalUploads = selectedPhotoUris.size
 
@@ -162,38 +163,21 @@ class ProductDetails : AppCompatActivity() {
             storageRef.putFile(uri)
                 .addOnSuccessListener {
                     storageRef.downloadUrl.addOnSuccessListener { downloadUrl ->
-                        database.child("products").child(productId)
-                            .child("photoUrls").child(UUID.randomUUID().toString()).setValue(downloadUrl.toString())
-                            .addOnSuccessListener {
-                                Log.d("ProductDetails", "Image URL added to Realtime Database: $downloadUrl")
-                                uploadCount++ // Increment the successful upload count
-
-                                // Check if all images have been uploaded
-                                if (uploadCount == totalUploads) {
+                        uploadedUrls.add(downloadUrl.toString())
+                        uploadCount++
+                        if (uploadCount == totalUploads) {
+                            database.child("products").child(category).child(productId)
+                                .child("photos").setValue(uploadedUrls)
+                                .addOnSuccessListener {
                                     progressBar.visibility = View.GONE
                                     Toast.makeText(this, "Product uploaded successfully", Toast.LENGTH_SHORT).show()
-                                    navigateToCategoryActivity(category)  // Navigate to the respective activity based on category
-                                }
-                            }
-                            .addOnFailureListener { e ->
-                                Log.e("ProductDetails", "Failed to add image URL: ${e.message}", e)
-                                // Count this upload to complete the flow
-                                uploadCount++
-                                // Check if all images have been processed
-                                if (uploadCount == totalUploads) {
-                                    progressBar.visibility = View.GONE
-                                    Toast.makeText(this, "Product uploaded with some images failed", Toast.LENGTH_SHORT).show()
                                     navigateToCategoryActivity(category)
                                 }
-                            }
+                        }
                     }
                 }
-                .addOnFailureListener { e ->
-                    Toast.makeText(this, "Failed to upload image: ${e.message}", Toast.LENGTH_SHORT).show()
-                    Log.e("ProductDetails", "Failed to upload image: ${e.message}", e)
-                    // Count this upload to complete the flow
+                .addOnFailureListener {
                     uploadCount++
-                    // Check if all images have been processed
                     if (uploadCount == totalUploads) {
                         progressBar.visibility = View.GONE
                         Toast.makeText(this, "Product uploaded with some images failed", Toast.LENGTH_SHORT).show()
@@ -207,13 +191,7 @@ class ProductDetails : AppCompatActivity() {
         val intent = when (category) {
             "Pesticides" -> Intent(this, PesticidesActivity::class.java)
             "Crops" -> Intent(this, CropsActivity::class.java)
-            "Nursery Plants" -> Intent(this, NurseryPlantsActivity::class.java)
-            "Drip Pipelines" -> Intent(this, DripPipelinesActivity::class.java)
-            "Rentals" -> Intent(this, RentalsActivity::class.java)
-            "Tractors" -> Intent(this, TractorsActivity::class.java)
-            "Apiculture" -> Intent(this, ApicultureActivity::class.java)
-            "Poultry" -> Intent(this, PoultryActivity::class.java)
-            else -> Intent(this, HomePage::class.java)  // Fallback to BuySection if no match
+            else -> Intent(this, HomePage::class.java)
         }
         startActivity(intent)
         finish()

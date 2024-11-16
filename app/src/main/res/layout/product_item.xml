@@ -92,6 +92,15 @@
             android:layout_marginTop="4dp"
             android:maxLines="2"
             android:ellipsize="end" />
+        <TextView
+            android:id="@+id/productPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Price"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="4dp"
+            android:maxLines="2"
+            android:ellipsize="end" />
 
         <!-- Product Images Row -->
         <LinearLayout
@@ -156,31 +165,6 @@
                 android:textSize="16sp" />
         </LinearLayout>
 
-        <!-- Feedback Button -->
-        <LinearLayout
-            android:id="@+id/feedbackButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="4dp">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_feedback"
-                android:contentDescription="Feedback Icon"
-                app:tint="@android:color/black" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="Feedback"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
-        </LinearLayout>
 
         <!-- Share Button -->
         <LinearLayout

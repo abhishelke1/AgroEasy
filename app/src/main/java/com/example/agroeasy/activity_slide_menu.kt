@@ -18,6 +18,9 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.database.ValueEventListener
+import androidx.core.content.FileProvider
+import java.io.File
+import java.io.InputStream
 
 class SlideMenuActivity : AppCompatActivity() {
 
@@ -47,6 +50,18 @@ class SlideMenuActivity : AppCompatActivity() {
         yourProductsLayout.setOnClickListener {
             val intent = Intent(this, MyProductActivity::class.java)  // Replace with your target activity
             startActivity(intent)
+        }
+        val weatherLayout: LinearLayout = findViewById(R.id.layoutWeather)
+        weatherLayout.setOnClickListener {
+            // Redirect to the Weather screen
+            val intent = Intent(this, Weather::class.java) // Replace with your weather activity
+            startActivity(intent)
+        }
+// Inside your SlideMenuActivity or equivalent activity
+        val promoteButton: LinearLayout = findViewById(R.id.promote)
+
+        promoteButton.setOnClickListener {
+            shareAppPromotion() // Call the function to promote the app
         }
 
 
@@ -233,6 +248,42 @@ class SlideMenuActivity : AppCompatActivity() {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(intent)
     }
+    private fun shareAppPromotion() {
+        // Text to be shared
+        val promoText = """
+        AgroEasy: Revolutionizing Farming with Technology
+        
+        AgroEasy is your all-in-one agricultural assistant, making farming simpler, smarter, and more efficient. You can buy and sell products, check real-time weather updates, and scan products for quality assessment.
+        
+        Download AgroEasy now and experience the future of farming!
+    """.trimIndent()
+
+        // Get the image from the drawable folder
+        val imageFile = File(cacheDir, "promote.png")
+        val inputStream = resources.openRawResource(R.drawable.promote)
+        imageFile.outputStream().use { inputStream.copyTo(it) }
+
+        // Get the URI using FileProvider
+        val imageUri = FileProvider.getUriForFile(
+            this,
+            "$packageName.provider", // Ensure this matches the authorities declared in the manifest
+            imageFile
+        )
+
+        // Creating a sharing intent
+        val shareIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, promoText) // Add the promotional text
+            putExtra(Intent.EXTRA_STREAM, imageUri) // Add the image URI
+            type = "image/*" // Specify the type as an image
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION) // Grant permission to read the image URI
+        }
+
+        // Starting the share intent
+        startActivity(Intent.createChooser(shareIntent, "Share AgroEasy with"))
+    }
+
+
 
     // Open YouTube Channel
     private fun openYouTubeChannel() {

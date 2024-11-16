@@ -94,7 +94,7 @@ class ProfilePageActivity : AppCompatActivity() {
                 if (dataSnapshot.exists()) {
                     etProfileName.setText(dataSnapshot.child("name").value?.toString() ?: "N/A")
                     tvMobileNumber.setText(dataSnapshot.child("mobile").value?.toString() ?: "N/A")
-                    tvUserEmail.setText(user.email ?: "N/A")
+                    tvUserEmail.setText(user.email ?: "N/A") // Make email public
                     tvUserAddress.setText(dataSnapshot.child("address").value?.toString() ?: "N/A")
                 } else {
                     Toast.makeText(this, "User data not found", Toast.LENGTH_SHORT).show()

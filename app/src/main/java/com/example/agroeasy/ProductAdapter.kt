@@ -9,76 +9,44 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
 import java.util.*
-
-class ProductAdapter(private val products: MutableList<Product>) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+import android.content.Context
+class ProductAdapter(private val context: Context, private val productList: ArrayList<Product>) :
+    RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.product_item, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.activity_read_more, parent, false)
         return ProductViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        val product = products[position]
-        holder.bind(product)
+        val product = productList[position]
+
+        holder.title.text = product.title
+        holder.description.text = product.description
+        holder.address.text = product.address
+        holder.price.text = product.price
+        holder.userName.text = product.userName
+        holder.uploadTime.text = product.uploadTime
+
+        // Load profile image (use Glide, Picasso, or any other image loading library)
+        Glide.with(context).load(product.profileImageUrl).into(holder.profileImageView)
+
+        // Load product images in a carousel or a grid (for simplicity, we’ll load the first one)
+        if (product.productImageUrls.isNotEmpty()) {
+            Glide.with(context).load(product.productImageUrls[0]).into(holder.productImageView)
+        }
     }
 
-    override fun getItemCount(): Int = products.size
-
-    // Method to add a new product to the list
-    fun addProduct(newProduct: Product) {
-        products.add(0, newProduct) // Add the new product at the top
-        notifyDataSetChanged() // Notify the adapter to update the list
-    }
+    override fun getItemCount(): Int = productList.size
 
     class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val userName: TextView = itemView.findViewById(R.id.tvUserName)
-        private val uploadTime: TextView = itemView.findViewById(R.id.tvUploadTime)
-        private val title: TextView = itemView.findViewById(R.id.tvTitle)
-        private val description: TextView = itemView.findViewById(R.id.tvDescription)
-        private val imageView1: ImageView = itemView.findViewById(R.id.ivProductImage1)
-        private val imageView2: ImageView = itemView.findViewById(R.id.ivProductImage2)
-        private val imageView3: ImageView = itemView.findViewById(R.id.ivProductImage3)
-        private val profilePicture: ImageView = itemView.findViewById(R.id.ivProfilePicture)
-
-        fun bind(product: Product) {
-            userName.text = product.sellerName
-            uploadTime.text = formatTimestamp(product.timestamp)
-            title.text = product.title
-            description.text = product.description
-
-            // Load product images (use Glide or any other image loading library)
-            product.photoUrls?.let { photoUrls ->
-                if (photoUrls.isNotEmpty()) {
-                    Glide.with(itemView.context)
-                        .load(photoUrls[0])
-                        .placeholder(R.drawable.placeholder) // Add a placeholder image
-                        .into(imageView1)
-                }
-                if (photoUrls.size > 1) {
-                    Glide.with(itemView.context)
-                        .load(photoUrls[1])
-                        .placeholder(R.drawable.placeholder) // Add a placeholder image
-                        .into(imageView2)
-                }
-                if (photoUrls.size > 2) {
-                    Glide.with(itemView.context)
-                        .load(photoUrls[2])
-                        .placeholder(R.drawable.placeholder) // Add a placeholder image
-                        .into(imageView3)
-                }
-            }
-
-            // Bind profile picture and name
-            Glide.with(itemView.context)
-                .load(product.profilePictureUrl) // Load the seller's profile picture
-                .placeholder(R.drawable.img_24) // Add a default image in case of failure
-                .into(profilePicture)
-        }
-
-        private fun formatTimestamp(timestamp: Long): String {
-            val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-            val date = Date(timestamp)
-            return sdf.format(date)
-        }
+        val title: TextView = itemView.findViewById(R.id.productTitle)
+        val description: TextView = itemView.findViewById(R.id.productDescription)
+        val address: TextView = itemView.findViewById(R.id.productAddress)
+        val price: TextView = itemView.findViewById(R.id.productPrice)
+        val userName: TextView = itemView.findViewById(R.id.productUserName)
+        val uploadTime: TextView = itemView.findViewById(R.id.productUploadTime)
+        val profileImageView: ImageView = itemView.findViewById(R.id.profileImage)
+        val productImageView: ImageView = itemView.findViewById(R.id.productImage)
     }
 }

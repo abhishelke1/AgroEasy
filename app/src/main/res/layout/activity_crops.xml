@@ -19,7 +19,6 @@
             android:layout_height="wrap_content"
             android:padding="4dp">
 
-            <!-- Side Menu Icon -->
             <ImageButton
                 android:id="@+id/btnMenu"
                 android:layout_width="32dp"
@@ -30,7 +29,6 @@
                 android:contentDescription="Menu Icon"
                 android:layout_alignParentStart="true" />
 
-            <!-- App Name Text -->
             <TextView
                 android:id="@+id/appName"
                 android:layout_width="wrap_content"
@@ -42,7 +40,6 @@
                 android:layout_centerHorizontal="true"
                 android:textStyle="bold" />
 
-            <!-- Notification Icon -->
             <ImageButton
                 android:id="@+id/btnNotification"
                 android:layout_width="32dp"
@@ -87,140 +84,28 @@
                     android:textColor="@android:color/black"
                     android:paddingStart="8dp"
                     android:textSize="16sp" />
+
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Categories Section with White Background -->
+
+    <!-- Categories Section with White Background (Add content here) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@android:color/white"
         android:padding="8dp">
-
-        <!-- Horizontal Scroll View for Categories -->
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <!-- All Categories Button -->
-                <ImageButton
-                    android:id="@+id/btnAllCategories"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/mobile_number_box"
-                    android:src="@drawable/img_29"
-                    android:contentDescription="All Categories"
-                    android:scaleType="centerInside" />
-
-                <!-- Pesticides -->
-                <ImageButton
-                    android:id="@+id/btnPesticides"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/mobile_number_box"
-                    android:src="@drawable/img_15"
-                    android:contentDescription="Pesticides"
-                    android:scaleType="centerInside" />
-
-                <!-- Crops -->
-                <ImageButton
-                    android:id="@+id/btnCrops"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/mobile_number_box"
-                    android:src="@drawable/img_22"
-                    android:contentDescription="Crops"
-                    android:scaleType="centerInside" />
-
-                <!-- Nursery Plants -->
-                <ImageButton
-                    android:id="@+id/btnNurseryPlants"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/mobile_number_box"
-                    android:src="@drawable/img_16"
-                    android:contentDescription="Nursery Plants"
-                    android:scaleType="centerInside" />
-
-                <!-- Drip Pipelines -->
-                <ImageButton
-                    android:id="@+id/btnDripPipelines"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/mobile_number_box"
-                    android:src="@drawable/img_17"
-                    android:contentDescription="Drip Pipelines"
-                    android:scaleType="centerInside" />
-
-                <!-- Poultry -->
-                <ImageButton
-                    android:id="@+id/btnPoultry"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/mobile_number_box"
-                    android:src="@drawable/img_26"
-                    android:contentDescription="Poultry"
-                    android:scaleType="centerInside" />
-
-                <!-- Apiculture -->
-                <ImageButton
-                    android:id="@+id/btnApiculture"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/mobile_number_box"
-                    android:src="@drawable/img_19"
-                    android:contentDescription="Apiculture"
-                    android:scaleType="centerInside" />
-
-                <!-- Tractors -->
-                <ImageButton
-                    android:id="@+id/btnTractors"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/mobile_number_box"
-                    android:src="@drawable/img_20"
-                    android:contentDescription="Tractors"
-                    android:scaleType="centerInside" />
-
-                <!-- Rentals -->
-                <ImageButton
-                    android:id="@+id/btnRentals"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/mobile_number_box"
-                    android:src="@drawable/img_21"
-                    android:contentDescription="Rentals"
-                    android:scaleType="centerInside" />
-
-            </LinearLayout>
-        </HorizontalScrollView>
+        <!-- Add Category Buttons or RecyclerView here -->
     </LinearLayout>
 
-    <!-- Centered RecyclerView for displaying products -->
+
+    <!-- Centered RecyclerView for displaying Crops products -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/productRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="16dp"
         android:layout_gravity="center" />
 </LinearLayout>

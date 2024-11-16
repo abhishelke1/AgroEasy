@@ -1,5 +1,6 @@
 package com.example.agroeasy
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -80,6 +81,13 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show()
+
+                // Save login state to SharedPreferences
+                val sharedPreferences = getSharedPreferences("AgroEasyPrefs", Context.MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                editor.putBoolean("isLoggedIn", true)
+                editor.apply()
+
                 // Redirect to home page (NextActivity)
                 startActivity(Intent(this, HomePage::class.java))
                 finish() // Optional: Finish the login activity

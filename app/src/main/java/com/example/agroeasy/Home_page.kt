@@ -121,6 +121,11 @@ class HomePage : AppCompatActivity() {
             startActivity(intent)
         }
     }
+    override fun onBackPressed() {
+        // Close all activities and exit the app
+        finishAffinity()  // This will exit the app
+    }
+
 
     private fun loadProfilePicture() {
         val currentUser = auth.currentUser
