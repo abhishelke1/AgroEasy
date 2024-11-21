@@ -177,6 +177,21 @@
         android:layout_marginEnd="24dp"
         android:padding="12dp" />
 
+    <!-- Add Market Rate Button (Only for Admin) -->
+    <Button
+        android:id="@+id/btnAddMarketRate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Market Rate (Only for Admin)"
+        android:textColor="@android:color/white"
+        android:background="@drawable/rounded_button"
+        android:layout_below="@id/btnUpdateProfile"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:padding="12dp"
+        /> <!-- Default hidden -->
+
     <!-- Logout Button -->
     <Button
         android:id="@+id/btnLogout"
@@ -184,10 +199,9 @@
         android:layout_height="wrap_content"
         android:text="Logout"
         android:textColor="@android:color/black"
-        android:layout_below="@id/btnUpdateProfile"
+        android:layout_below="@id/btnAddMarketRate"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        />
+        android:layout_marginTop="16dp" />
 
     <!-- Help Section -->
     <TextView

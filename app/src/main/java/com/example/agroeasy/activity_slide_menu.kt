@@ -79,6 +79,12 @@ class SlideMenuActivity : AppCompatActivity() {
             shareAppPromotion() // Call the function to promote the app
         }
 
+        val layoutMarketRate = findViewById<LinearLayout>(R.id.layoutMarketRate)
+        layoutMarketRate.setOnClickListener {
+            // Navigate to Market Rate Activity
+            startActivity(Intent(this, market::class.java))
+        }
+
 
         // Set OnClickListener for each menu item
         findViewById<LinearLayout>(R.id.layoutGovernmentPolicies).setOnClickListener {

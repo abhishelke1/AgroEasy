@@ -31,6 +31,7 @@ class ProfilePageActivity : AppCompatActivity() {
     private lateinit var btnUpdateProfile: Button
     private lateinit var btnLogout: Button
     private lateinit var tvHelp: TextView
+    private lateinit var btnAddMarketRate: Button
 
     private val PICK_IMAGE_REQUEST = 1
     private var imageUri: Uri? = null
@@ -51,6 +52,7 @@ class ProfilePageActivity : AppCompatActivity() {
         btnUpdateProfile = findViewById(R.id.btnUpdateProfile)
         btnLogout = findViewById(R.id.btnLogout)
         tvHelp = findViewById(R.id.tvHelp)
+        btnAddMarketRate = findViewById(R.id.btnAddMarketRate)
 
         loadUserProfile()
 
@@ -62,6 +64,9 @@ class ProfilePageActivity : AppCompatActivity() {
             auth.signOut()
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
+        }
+        btnAddMarketRate.setOnClickListener {
+            showPinDialog()
         }
 
         tvHelp.setOnClickListener {
@@ -170,4 +175,32 @@ class ProfilePageActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun showPinDialog() {
+        val pinDialog = AlertDialog.Builder(this)
+        val pinInput = EditText(this)
+        pinInput.hint = "Enter Admin PIN"
+        pinInput.inputType = android.text.InputType.TYPE_CLASS_NUMBER or android.text.InputType.TYPE_NUMBER_VARIATION_PASSWORD
+
+        pinDialog.setTitle("Admin Authentication")
+            .setView(pinInput)
+            .setPositiveButton("Submit") { dialog, _ ->
+                val enteredPin = pinInput.text.toString()
+                val correctPin = "2000"
+
+                if (enteredPin == correctPin) {
+                    val intent = Intent(this, MarketplaceActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(this, "Wrong PIN. Access denied.", Toast.LENGTH_SHORT).show()
+                }
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+            .show()
+    }
 }
+

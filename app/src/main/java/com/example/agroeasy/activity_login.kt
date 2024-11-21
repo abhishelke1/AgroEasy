@@ -32,9 +32,9 @@ class LoginActivity : AppCompatActivity() {
         passwordEditText = findViewById(R.id.etPassword)
         loginButton = findViewById(R.id.btnLogin)
         dontHaveAccountButton = findViewById(R.id.btnDontHaveAccount)
-        togglePasswordVisibility = findViewById(R.id.ivTogglePassword) // Initialize the toggle
+        togglePasswordVisibility = findViewById(R.id.ivTogglePassword)
 
-        // Initialize Firebase Auth
+
         auth = FirebaseAuth.getInstance()
 
         // Back button to go to LanguageSelectionActivity

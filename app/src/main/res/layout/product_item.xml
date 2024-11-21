@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -23,7 +23,7 @@
 
             <!-- Profile Image -->
             <ImageView
-                android:id="@+id/ivProfilePicture"
+                android:id="@+id/profileImag"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentStart="true"
@@ -38,11 +38,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_toEndOf="@id/ivProfilePicture"
+                android:layout_toEndOf="@id/profileImag"
                 android:layout_centerVertical="true">
 
                 <TextView
-                    android:id="@+id/tvUserName"
+                    android:id="@+id/productUserNam"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Username"
@@ -51,20 +51,18 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/tvUploadTime"
+                    android:id="@+id/productUploadTim"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Upload Time"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="12sp" />
             </LinearLayout>
-
-            <!-- Read More Button -->
         </RelativeLayout>
 
         <!-- Product Title -->
         <TextView
-            android:id="@+id/tvTitle"
+            android:id="@+id/productTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Product Title"
@@ -75,7 +73,7 @@
 
         <!-- Product Description -->
         <TextView
-            android:id="@+id/tvDescription"
+            android:id="@+id/productDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Product Description"
@@ -95,8 +93,9 @@
             android:maxLines="2"
             android:ellipsize="end" />
 
+        <!-- User Address -->
         <TextView
-            android:id="@+id/UserAdress"
+            android:id="@+id/productAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Address"
@@ -105,127 +104,118 @@
             android:maxLines="2"
             android:ellipsize="end" />
 
-        <TextView
-            android:id="@+id/UserNumber"
-            android:layout_width="wrap_content"
+        <!-- Horizontal Scrolling for Product Images -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mobile number"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="4dp"
-            android:maxLines="2"
-            android:ellipsize="end" />
-        <TextView
-            android:id="@+id/Useremail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="user email"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="4dp"
-            android:maxLines="2"
-            android:ellipsize="end" />
+            android:layout_marginTop="8dp">
 
-        <!-- Product Images Row -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- Product Image 1 -->
+                <ImageView
+                    android:id="@+id/productImage"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="Product Image 1"
+                    android:layout_marginEnd="8dp" />
+
+                <!-- Product Image 2 -->
+                <ImageView
+                    android:id="@+id/productImage2"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="Product Image 2"
+                    android:layout_marginEnd="8dp" />
+
+                <!-- Product Image 3 -->
+                <ImageView
+                    android:id="@+id/productImage3"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="Product Image 3"
+                    android:layout_marginEnd="8dp" />
+
+                <!-- Product Image 4 -->
+                <ImageView
+                    android:id="@+id/productImage4"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="Product Image 4" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- Buttons Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="8dp">
+            android:padding="8dp"
+            android:background="@color/teal">
 
-            <ImageView
-                android:id="@+id/ivProductImage1"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:scaleType="centerCrop"
-                android:contentDescription="Product Image 1"
-                android:src="@drawable/dummy_image" /> <!-- Use your image resource here -->
-
-            <ImageView
-                android:id="@+id/ivProductImage2"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:scaleType="centerCrop"
-                android:layout_marginStart="8dp"
-                android:contentDescription="Product Image 2"
-                android:src="@drawable/dummy_image" /> <!-- Use your image resource here -->
-
-            <ImageView
-                android:id="@+id/ivProductImage3"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:scaleType="centerCrop"
-                android:layout_marginStart="8dp"
-                android:contentDescription="Product Image 3"
-                android:src="@drawable/dummy_image" /> <!-- Use your image resource here -->
-
-            <ImageView
-                android:id="@+id/ivProductImage4"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:scaleType="centerCrop"
-                android:layout_marginStart="8dp"
-                android:contentDescription="Product Image 4"
-                android:src="@drawable/dummy_image" /> <!-- Use your image resource here -->
-        </LinearLayout>
-    </LinearLayout>
-
-    <!-- Buttons Section -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        android:background="@color/teal">
-
-        <!-- Save Button -->
-        <LinearLayout
-            android:id="@+id/saveButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="4dp">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_save"
-                android:contentDescription="Save Icon"
-                app:tint="@android:color/black" />
-
-            <TextView
-                android:layout_width="wrap_content"
+            <!-- Save Button -->
+            <LinearLayout
+                android:id="@+id/saveButton"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="Save"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
-        </LinearLayout>
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="4dp">
 
-        <!-- Share Button -->
-        <LinearLayout
-            android:id="@+id/shareButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="4dp">
+                <!-- Save/Unsave Icon -->
+                <ImageView
+                    android:id="@+id/saveButtonIcon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_save"
+                    android:contentDescription="Save Icon"
+                    app:tint="@android:color/black" />
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_share"
-                android:contentDescription="Share Icon"
-                app:tint="@android:color/black" />
+                <!-- Save/Unsave Text -->
+                <TextView
+                    android:id="@+id/saveButtonText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="Save"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <!-- Share Button -->
+            <LinearLayout
+                android:id="@+id/shareButton"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="Share"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_share"
+                    android:contentDescription="Share Icon"
+                    app:tint="@android:color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="Share"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

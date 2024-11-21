@@ -18,6 +18,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+
     <!-- Product Details Title -->
     <TextView
         android:id="@+id/productDetailsTitle"
