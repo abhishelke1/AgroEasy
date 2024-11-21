@@ -39,7 +39,7 @@ class Scane : AppCompatActivity() {
     private fun showUnderConstructionMessage() {
         Toast.makeText(
             this,
-            "This feature is under construction. We are working on it and will update soon.",
+            "This feature is under Devlopement. We are working on it and will update soon.",
             Toast.LENGTH_LONG
         ).show()
     }

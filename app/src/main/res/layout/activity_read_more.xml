@@ -1,0 +1,78 @@
+<!-- res/layout/product_item_layout.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!-- Profile Image -->
+    <ImageView
+        android:id="@+id/profileImag"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:src="@drawable/img_24" />
+
+    <!-- Product Title -->
+    <TextView
+        android:id="@+id/productTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Product Title"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:textColor="#000" />
+
+    <!-- Product Description -->
+    <TextView
+        android:id="@+id/productDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Product Description"
+        android:textSize="14sp"
+        android:textColor="#555" />
+
+    <!-- Product Price -->
+    <TextView
+        android:id="@+id/productPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="₹100"
+        android:textSize="16sp"
+        android:textColor="#000" />
+
+    <!-- Address -->
+    <TextView
+        android:id="@+id/productAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Address"
+        android:textSize="12sp"
+        android:textColor="#777" />
+
+    <!-- Uploader Name and Upload Time -->
+    <TextView
+        android:id="@+id/productUserNam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Uploader Name"
+        android:textSize="12sp"
+        android:textColor="#333" />
+
+    <TextView
+        android:id="@+id/productUploadTim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload Time"
+        android:textSize="12sp"
+        android:textColor="#333" />
+
+    <!-- Product Image -->
+    <ImageView
+        android:id="@+id/productImage"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/placeholder"
+        android:layout_marginTop="8dp" />
+</LinearLayout>

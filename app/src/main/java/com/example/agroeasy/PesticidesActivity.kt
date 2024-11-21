@@ -7,17 +7,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
+import java.text.SimpleDateFormat
+import java.util.*
 
 class PesticidesActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
+    private lateinit var productList: ArrayList<Product>
     private lateinit var productAdapter: ProductAdapter
-    private val productList: MutableList<Product> = mutableListOf()
-
-    private val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().getReference("Pesticides")
-    private val storageReference: StorageReference = FirebaseStorage.getInstance().reference
+    private lateinit var databaseReference: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,30 +24,72 @@ class PesticidesActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Initialize the adapter with the context and empty list
+        // Initialize the product list
+        productList = ArrayList()
+
+        // Set up the adapter
         productAdapter = ProductAdapter(this, productList)
         recyclerView.adapter = productAdapter
 
-        fetchProductData() // Fetch product data from Firebase
+        // Reference to the "products/Pesticides" node in Firebase
+        databaseReference = FirebaseDatabase.getInstance().getReference("products").child("Pesticides")
+
+        fetchProductsFromFirebase()
     }
 
-    // Fetch product data from Firebase Realtime Database
-    private fun fetchProductData() {
+    private fun fetchProductsFromFirebase() {
         databaseReference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                productList.clear() // Clear any existing data
-                for (snapshot in dataSnapshot.children) {
-                    val product = snapshot.getValue(Product::class.java)
-                    product?.let {
-                        productList.add(it)
+            override fun onDataChange(snapshot: DataSnapshot) {
+                productList.clear() // Clear the list before adding new data to avoid duplication
+                for (productSnapshot in snapshot.children) {
+                    // Read each product and map to Product class
+                    val title = productSnapshot.child("title").getValue(String::class.java) ?: "No Title"
+                    val description = productSnapshot.child("description").getValue(String::class.java) ?: "No Description"
+                    val address = productSnapshot.child("address").getValue(String::class.java) ?: "No Address"
+                    val price = productSnapshot.child("price").getValue(Long::class.java) ?: 0L
+                    val uploaderName = productSnapshot.child("uploader").child("name").getValue(String::class.java) ?: "Admin"
+                    var profileImageUrl = productSnapshot.child("uploader").child("profilePhoto").getValue(String::class.java)
+
+                    // Use default image if no URL or empty string
+                    if (profileImageUrl.isNullOrEmpty()) {
+                        profileImageUrl = "android.resource://${packageName}/drawable/img_24"
                     }
+
+                    // Handle timestamp properly as a Long value
+                    val timestamp = productSnapshot.child("timestamp").getValue(Long::class.java) ?: 0L
+                    val uploadTime = convertTimestampToDate(timestamp)
+
+                    val productImageUrls = productSnapshot.child("photos").children.mapNotNull { it.getValue(String::class.java) }
+
+                    // Create Product object and add it to the list
+                    val product = Product(
+                        title = title,
+                        description = description,
+                        address = address,
+                        price = "₹$price",
+                        userName = uploaderName,
+                        uploadTime = uploadTime,
+                        profileImageUrl = profileImageUrl,
+                        productImageUrls = productImageUrls,
+                        timestamp = timestamp // Store timestamp as Long
+                    )
+                    productList.add(product)
                 }
-                productAdapter.notifyDataSetChanged() // Notify adapter to update UI
+
+                productAdapter.notifyDataSetChanged() // Notify the adapter about data changes
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Log.e("Firebase", "Error fetching data: ${error.message}")
+                Toast.makeText(this@PesticidesActivity, "Failed to load data: ${error.message}", Toast.LENGTH_SHORT).show()
+                Log.e("PesticidesActivity", "Database error: ${error.message}")
             }
         })
+    }
+
+    // Convert Long timestamp to formatted date string
+    private fun convertTimestampToDate(timestamp: Long): String {
+        val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault()) // Change format as needed
+        val date = Date(timestamp)
+        return sdf.format(date)
     }
 }
