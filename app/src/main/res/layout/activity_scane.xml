@@ -1,0 +1,136 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main"
+    android:background="@drawable/background_gradien">
+
+    <!-- Back Button -->
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/img_1"
+        android:contentDescription="Back"
+        android:background="@android:color/transparent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_alignParentStart="true"
+        android:scaleType="fitXY" />
+
+    <!-- App Title -->
+    <TextView
+        android:id="@+id/appTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AGROEASY"
+        android:textSize="30sp"
+        android:fontFamily="@font/merriweathersans_semibold"
+        android:textColor="@color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp" />
+
+    <!-- ScrollView to make content scrollable -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/appTitle"
+        android:layout_above="@id/bottom_navigation"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Central Image -->
+            <ImageView
+                android:id="@+id/centerImage"
+                android:layout_width="199dp"
+                android:layout_height="259dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:contentDescription="Center Image"
+                android:src="@drawable/img_31" />
+
+            <!-- Description Text -->
+            <TextView
+                android:id="@+id/descriptionText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Upload your crop photo to identify diseases and receive tailored solutions instantly."
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp" />
+
+            <!-- Upload Crop Button -->
+            <ImageButton
+                android:id="@+id/uploadCropButton"
+                android:layout_width="340dp"
+                android:layout_height="222dp"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center"
+                android:src="@drawable/img_32"
+                android:contentDescription="Upload Crop Button"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Bottom Navigation Bar -->
+    <LinearLayout
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/rectangle_background"
+        android:padding="8dp"
+        android:gravity="center"
+        android:layout_alignParentBottom="true">
+
+        <ImageButton
+            android:id="@+id/homeIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_home"
+            android:contentDescription="Home"
+            android:scaleType="fitXY"
+            android:background="@drawable/active_icon_background" />
+
+        <ImageButton
+            android:id="@+id/qrIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_qr"
+            android:contentDescription="QR"
+            android:scaleType="fitCenter"
+            android:background="@drawable/active_icon_background"
+            android:layout_marginStart="16dp" />
+
+        <ImageButton
+            android:id="@+id/videoIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/img_23"
+            android:contentDescription="Video"
+            android:scaleType="fitCenter"
+            android:background="@drawable/active_icon_background"
+            android:layout_marginStart="16dp" />
+
+        <ImageButton
+            android:id="@+id/accountIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_account"
+            android:contentDescription="Account"
+            android:scaleType="fitCenter"
+            android:background="@drawable/active_icon_background"
+            android:layout_marginStart="16dp" />
+    </LinearLayout>
+
+</RelativeLayout>

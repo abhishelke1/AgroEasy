@@ -1,0 +1,7 @@
+<!-- res/drawable/gradient_background.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:startColor="#A0D6D6"
+    android:endColor="#FFFFFF"
+    android:angle="270" />          <!-- Properly closed the tag with "/>" -->
+</shape>
