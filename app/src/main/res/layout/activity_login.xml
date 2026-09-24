@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center"
+    android:background="@drawable/gradient_background">  <!-- Set the gradient background -->
+
+    <!-- Back Button -->
+    <ImageView
+        android:id="@+id/backButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/img_1"
+        android:contentDescription="Back Button"
+        android:layout_gravity="start" />
+
+    <!-- Welcome Text -->
+    <TextView
+        android:id="@+id/tvWelcomeBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome back!"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp" />
+
+    <!-- Illustration Image -->
+    <ImageView
+        android:id="@+id/illustrationImage"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:src="@drawable/img_7"
+        android:contentDescription="Illustration"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp" />
+
+    <!-- Email Input with Drawable -->
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/white_box"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:padding="12dp"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:drawableStart="@drawable/ic_mail"
+    android:drawablePadding="8dp"
+    android:layout_marginTop="16dp"
+    tools:ignore="TouchTargetSizeCheck" />
+
+    <!-- Password Input with Eye Icon and Drawable -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/white_box"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:padding="12dp"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:drawableStart="@drawable/ic_lock"
+        android:drawablePadding="8dp"
+        tools:ignore="TouchTargetSizeCheck" />
+
+        <ImageView
+            android:id="@+id/ivTogglePassword"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="16dp"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:src="@drawable/ic_eye_closed" /> <!-- Replace with your eye icon -->
+    </RelativeLayout>
+
+    <!-- Login Button -->
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:textColor="@android:color/white"
+        android:background="@drawable/button_background"
+        android:layout_marginTop="16dp"
+        android:padding="12dp" />
+
+    <!-- Don't have an account? Button -->
+    <Button
+        android:id="@+id/btnDontHaveAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Don't have an account?"
+        android:textColor="@android:color/black"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:padding="12dp" />
+
+    <!-- Google and Facebook Login Images -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <!-- Google Login Image -->
+        <ImageView
+            android:id="@+id/imgGoogle"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/circle_shape"
+            android:contentDescription="Google Login"
+            android:clickable="true"
+            android:src="@drawable/ic_google" /> <!-- Replace with your Google vector image -->
+
+        <!-- Facebook Login Image -->
+        <ImageView
+            android:id="@+id/imgFacebook"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/circle_shape"
+            android:contentDescription="Facebook Login"
+            android:clickable="true"
+            android:src="@drawable/ic_facebook" /> <!-- Replace with your Facebook vector image -->
+
+    </LinearLayout>
+
+</LinearLayout>
